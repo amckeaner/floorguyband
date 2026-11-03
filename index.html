@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Floor Guy</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Floor Guy is a four-piece band from Hailey, Idaho: Emily Freudenberger, Andrew McKean, Sam Dispenza and Koko Furlong.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: photocopied show flyer built from the black-and-white band photo. Name on top so the band looks up at it, cinder-block bands as dividers, live photos as the only color. */
+:root {
+  --paper: #ebeae6;       /* photocopy paper */
+  --paper-2: #e0dfda;     /* raised surfaces */
+  --ink: #121212;         /* toner black */
+  --ink-soft: #4a4a47;    /* faded toner */
+  --ghost: #a3a29d;       /* misregistered second pass */
+  --line: rgba(18, 18, 18, 0.2);
+  --block: #cfceC8;       /* cinder block face */
+  --mortar: #8f8e89;
+  --grain-opacity: 0.07;
+
+  --display: "Shrikhand", "Cooper Black", Georgia, serif;
+  --body: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --step--1: 0.8125rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.3rem;
+  --step-2: 1.8rem;
+  --step-3: clamp(2.2rem, 6vw, 3.4rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111110; --paper-2: #1b1b1a; --ink: #ecebe6; --ink-soft: #b4b3ae; --ghost: #55544f;
+    --line: rgba(236, 235, 230, 0.18); --block: #262624; --mortar: #0b0b0a; --grain-opacity: 0.09;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111110; --paper-2: #1b1b1a; --ink: #ecebe6; --ink-soft: #b4b3ae; --ghost: #55544f;
+  --line: rgba(236, 235, 230, 0.18); --block: #262624; --mortar: #0b0b0a; --grain-opacity: 0.09;
+  color-scheme: dark;
+}
+
+html { background: var(--paper); }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+/* photocopier grain */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+a { color: inherit; }
+img { height: auto; }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+.label {
+  font-family: var(--mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---------- top bar ---------- */
+.topbar .wrap {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding-block: 18px;
+}
+.topbar .label strong { color: var(--ink); font-weight: 500; }
+.ig-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: var(--step--1); letter-spacing: 0.06em;
+  text-decoration: none; color: var(--ink);
+  padding: 8px 14px; border: 1.5px solid var(--ink); border-radius: 999px;
+  transition: background .2s, color .2s;
+}
+.ig-link:hover { background: var(--ink); color: var(--paper); }
+.ig-link svg { width: 16px; height: 16px; flex: none; }
+
+/* ---------- hero ---------- */
+.hero .wrap { padding-block: clamp(8px, 3vw, 32px) clamp(48px, 7vw, 88px); }
+.name {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(4.6rem, 17vw, 12.5rem);
+  line-height: 0.84;
+  margin: 0 0 clamp(20px, 4vw, 40px);
+  color: var(--ink);
+  text-shadow: 0.04em 0.035em 0 var(--ghost);
+}
+.name .row { display: block; white-space: nowrap; }
+.name .row + .row { padding-left: 0.6em; margin-top: 0.06em; }
+.name .l { display: inline-block; animation: wiggle 3.2s ease-in-out infinite; transform-origin: 50% 80%; }
+.name .row:last-child .l { animation-name: sink; }
+@keyframes wiggle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-0.04em) rotate(-3deg); }
+  75% { transform: translateY(0.03em) rotate(2.5deg); }
+}
+@keyframes sink {
+  0%, 100% { transform: translateY(0.02em) rotate(1deg); }
+  50% { transform: translateY(0.11em) rotate(-2deg); }
+}
+.hero-body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.5fr);
+  gap: clamp(24px, 5vw, 56px);
+  align-items: end;
+}
+.tagline {
+  font-size: var(--step-2);
+  line-height: 1.2;
+  margin: 0 0 16px;
+  max-width: 18ch;
+  text-wrap: balance;
+  font-weight: 500;
+}
+.tagline em {
+  font-style: italic; font-weight: 400;
+  text-decoration: underline wavy var(--ink-soft) 1.5px;
+  text-underline-offset: 6px;
+}
+.hero-text .label { margin: 0; }
+.hero-photo { margin: 0; transform: rotate(-1.2deg); }
+.hero-photo img {
+  display: block; width: 100%; max-width: 100%;
+  aspect-ratio: 5 / 4; object-fit: cover; object-position: 50% 22%;
+  box-shadow: 12px 12px 0 var(--ink);
+  filter: contrast(1.06);
+}
+
+/* ---------- cinder block divider ---------- */
+.blocks {
+  height: 53px;
+  background:
+    linear-gradient(90deg, var(--mortar) 3px, transparent 3px) 0 0 / 72px 25px repeat-x,
+    linear-gradient(90deg, var(--mortar) 3px, transparent 3px) 36px 25px / 72px 25px repeat-x,
+    linear-gradient(var(--mortar) 3px, transparent 3px) 0 0 / 100% 25px repeat-y,
+    var(--block);
+  border-bottom: 3px solid var(--mortar);
+}
+
+/* ---------- sections ---------- */
+section { padding-block: clamp(56px, 8vw, 104px); }
+.section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+h2 {
+  font-family: var(--display); font-weight: 400;
+  font-size: var(--step-3); line-height: 1; margin: 0;
+  text-wrap: balance;
+}
+
+/* ---------- about ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(28px, 6vw, 80px);
+  align-items: start;
+}
+.about-grid p { margin: 0 0 1.1em; max-width: 62ch; }
+.about-grid p:first-child { font-size: var(--step-1); line-height: 1.5; }
+.quote {
+  margin: 0;
+  padding: 28px 28px 24px;
+  border: 1.5px solid var(--ink);
+  transform: rotate(1deg);
+}
+.quote p { margin: 0 0 14px; font-family: var(--display); font-size: var(--step-2); line-height: 1.3; }
+.quote span { text-decoration: underline wavy var(--ink-soft) 2px; text-underline-offset: 8px; }
+
+/* ---------- band ---------- */
+.band { background: var(--paper-2); }
+.band-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(28px, 6vw, 72px);
+  align-items: center;
+}
+.band-photo { margin: 0; transform: rotate(1.4deg); }
+.band-photo img { display: block; width: 100%; max-width: 100%; aspect-ratio: 2 / 3; object-fit: cover; box-shadow: -12px 12px 0 var(--ink); }
+.members { list-style: none; margin: 0; padding: 0; display: grid; }
+.members li {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline;
+  padding-block: 18px; border-bottom: 1px solid var(--line);
+}
+.members li:first-child { border-top: 1px solid var(--line); }
+.members .who { font-size: var(--step-1); font-weight: 700; line-height: 1.25; }
+.members .role { text-align: right; }
+.instruments { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+.instruments li {
+  font-family: var(--mono); font-size: var(--step--1);
+  padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line);
+}
+.instruments li.odd { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* ---------- photos ---------- */
+.gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
+.gallery figure { margin: 0; overflow: hidden; background: var(--paper-2); }
+.gallery img { display: block; width: 100%; height: 100%; max-width: 100%; object-fit: cover; transition: transform .6s ease; }
+.gallery figure:hover img { transform: scale(1.03); }
+.g-crowd { grid-column: span 8; aspect-ratio: 4 / 3; }
+.g-cymbal { grid-column: span 4; }
+.g-pink { grid-column: span 7; aspect-ratio: 4 / 3; }
+.g-teal { grid-column: span 5; }
+.g-wide { grid-column: span 12; aspect-ratio: 21 / 9; }
+.g-half { grid-column: span 6; aspect-ratio: 4 / 3; }
+.g-strip { grid-column: span 12; aspect-ratio: 10 / 3; }
+.gallery .g-cymbal, .gallery .g-teal { position: relative; min-height: 220px; }
+.gallery .g-cymbal img, .gallery .g-teal img { position: absolute; inset: 0; }
+
+/* ---------- shows ---------- */
+.shows { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--ink); }
+.shows li {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) minmax(0, 220px);
+  gap: 12px 28px;
+  align-items: center;
+  padding-block: 22px;
+  border-bottom: 1px solid var(--line);
+}
+.date {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 76px; height: 76px; border-radius: 50%;
+  border: 2px solid var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.date .mo { font-family: var(--mono); font-size: var(--step--1); letter-spacing: 0.12em; text-transform: uppercase; line-height: 1; }
+.date .dy { font-family: var(--display); font-size: 1.7rem; line-height: 1.05; }
+.shows .secret .date { background: var(--ink); color: var(--paper); }
+.what { min-width: 0; }
+.eyebrow { margin: 0 0 4px; }
+.bill { margin: 0; font-size: var(--step-1); line-height: 1.3; }
+.bill strong { font-family: var(--display); font-weight: 400; font-size: var(--step-2); }
+.where { margin: 0; text-align: right; line-height: 1.35; font-weight: 500; }
+.iykyk { display: inline-block; font-family: var(--display); font-size: var(--step-2); transform: rotate(-4deg); }
+
+/* ---------- facts ---------- */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1.5px solid var(--ink);
+}
+.facts div { padding: 20px 20px 22px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.facts dt { margin-bottom: 6px; }
+.facts dd { margin: 0; font-size: var(--step-1); line-height: 1.3; overflow-wrap: anywhere; }
+.facts dd a { text-underline-offset: 4px; }
+
+.cta { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--ink); color: var(--paper);
+  text-decoration: none; font-weight: 700;
+  padding: 14px 22px; border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--ghost);
+  transition: transform .15s, box-shadow .15s;
+}
+.btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ghost); }
+.btn svg { width: 18px; height: 18px; }
+
+/* ---------- footer ---------- */
+footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 820px) {
+  .hero-body, .about-grid, .band-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-photo { order: -1; margin-right: 12px; }
+  .hero-photo img { aspect-ratio: 1 / 1; }
+  .band-photo { max-width: 420px; margin-inline: auto 12px; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g-crowd, .g-pink, .g-half { grid-column: span 12; }
+  .g-cymbal, .g-teal { grid-column: span 6; aspect-ratio: 3 / 4; }
+  .g-wide { aspect-ratio: 16 / 9; }
+  .g-strip { aspect-ratio: 2 / 1; }
+}
+@media (max-width: 480px) {
+  .facts { grid-template-columns: minmax(0, 1fr); }
+  .members li { grid-template-columns: minmax(0, 1fr); }
+  .members .role { text-align: left; }
+  .topbar .place { display: none; }
+  .shows li { grid-template-columns: 64px minmax(0, 1fr); gap: 10px 16px; }
+  .shows .date { width: 64px; height: 64px; }
+  .shows .date .dy { font-size: 1.4rem; }
+  .shows .where { grid-column: 2; text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .name .l { animation: none; }
+  .gallery img, .btn { transition: none; }
+}
+</style>
+</head>
+<body>
+
+
+<header class="topbar">
+  <div class="wrap">
+    <span class="label"><strong>Floor Guy</strong> <span class="place">· Hailey, Idaho</span></span>
+    <a class="ig-link" href="https://www.instagram.com/floorguyy/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      @floorguyy
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding:0">
+    <div class="wrap">
+      <h1 class="name" aria-label="Floor Guy">
+        <span class="row" aria-hidden="true"><span class="l" style="animation-delay:0s">F</span><span class="l" style="animation-delay:-.4s">l</span><span class="l" style="animation-delay:-.8s">o</span><span class="l" style="animation-delay:-1.2s">o</span><span class="l" style="animation-delay:-1.6s">r</span></span>
+        <span class="row" aria-hidden="true"><span class="l" style="animation-delay:-.3s">G</span><span class="l" style="animation-delay:-1s">u</span><span class="l" style="animation-delay:-1.7s">y</span></span>
+      </h1>
+      <div class="hero-body">
+        <div class="hero-text">
+          <p class="tagline">Hailey, Idaho’s newest proprietor of <em>wiggly air.</em></p>
+          <p class="label">Four-piece · Wood River Valley, Idaho</p>
+        </div>
+        <figure class="hero-photo">
+          <img src="img/band-bw.jpg" alt="Black and white photo of Floor Guy: four friends with guitars looking up, mouths open, against a cinder-block wall." width="1320" height="1400">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="blocks" role="presentation"></div>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head"><h2>About</h2></div>
+      <div class="about-grid">
+        <div>
+          <p>Floor Guy is four friends from Hailey, Idaho, making music that gets the whole room swaying.</p>
+          <p>Emily Freudenberger writes the songs: stories rooted in place, funny one minute and earnest the next. She plays acoustic guitar and piano. Andrew McKean and Sam Dispenza fill in around her, trading bass, guitar, pedal steel, mandolin, banjo and the occasional train whistle. Koko Furlong keeps the whole thing steady from behind the kit.</p>
+          <p>They don’t pick a genre and stick to it. They follow whatever sounds good and feels good to move to, and they’d rather sink the floor than raise the roof. Come ready to dance, maybe cry a little, and have a good time.</p>
+        </div>
+        <figure class="quote">
+          <p>“<span>sparkle</span>”<br>“<span>whimsical</span>”</p>
+          <figcaption class="label">How Floor Guy has been described</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="band">
+    <div class="wrap band-grid">
+      <figure class="band-photo">
+        <img src="img/hero.jpg" alt="The four members of Floor Guy crowded behind a keyboard in Halloween costume, one pointing a flashlight at the camera, all making scared faces under red stage light." width="933" height="1400" loading="lazy">
+      </figure>
+      <div>
+        <div class="section-head"><h2>The band</h2></div>
+        <ul class="members">
+          <li><span class="who">Emily Freudenberger</span><span class="label role">Songwriter · acoustic guitar · piano</span></li>
+          <li><span class="who">Andrew McKean</span><span class="label role">Multi-instrumentalist</span></li>
+          <li><span class="who">Sam Dispenza</span><span class="label role">Multi-instrumentalist</span></li>
+          <li><span class="who">Koko Furlong</span><span class="label role">Drums</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="photos">
+    <div class="wrap">
+      <div class="section-head"><h2>Live</h2><span class="label">Indoors and out</span></div>
+      <div class="gallery">
+        <figure class="g-crowd"><img src="img/crowd.jpg" alt="Floor Guy playing a packed, costumed house party under purple light, drummer in the foreground." width="1400" height="1050" loading="lazy"></figure>
+        <figure class="g-cymbal"><img src="img/cymbal.jpg" alt="A band member in a furry animal onesie holding a microphone up to a cymbal." width="1050" height="1400" loading="lazy"></figure>
+        <figure class="g-pink"><img src="img/stage-pink.jpg" alt="Floor Guy on stage under hot pink light, with electric guitar, drums, acoustic guitar and keyboard." width="1400" height="1050" loading="lazy"></figure>
+        <figure class="g-teal"><img src="img/stage-teal.jpg" alt="Floor Guy on stage under teal light with paper bats on the wall behind the drummer." width="1050" height="1400" loading="lazy"></figure>
+        <figure class="g-wide"><img src="img/out-green-close.jpg" alt="Floor Guy playing outdoors at night in animal onesies under green light and string lights, a fan dancing in the foreground." width="1600" height="901" loading="lazy"></figure>
+        <figure class="g-half"><img src="img/out-blue.jpg" alt="A crowd in winter hats facing the band on an outdoor stage lit blue, string lights strung between pine trees." width="1600" height="1200" loading="lazy"></figure>
+        <figure class="g-half"><img src="img/out-green-crowd.jpg" alt="A dancing crowd in green light in front of the band's outdoor stage under a big pine tree." width="1600" height="1200" loading="lazy"></figure>
+        <figure class="g-strip"><img src="img/out-night.jpg" alt="Wide night view of the band on a small lit stage in the trees, with the crowd in silhouette." width="1600" height="480" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="shows" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head"><h2>Shows</h2><span class="label">2026</span></div>
+      <ol class="shows">
+        <li>
+          <time class="date" datetime="2026-10-31"><span class="mo">Oct</span><span class="dy">31</span></time>
+          <div class="what">
+            <p class="label eyebrow">Halloween Party · Benefit for Rilo’s Rescue</p>
+            <p class="bill">Opening for <strong>Kate Croft</strong></p>
+          </div>
+          <p class="where">Salted Sprig<br><span class="label">Ketchum, Idaho</span></p>
+        </li>
+        <li class="secret">
+          <time class="date" datetime="2026-10-24"><span class="mo">Oct</span><span class="dy">24</span></time>
+          <div class="what">
+            <p class="label eyebrow">Festival</p>
+            <p class="bill"><strong>Monkey Fest 2026</strong></p>
+          </div>
+          <p class="where"><span class="iykyk">iykyk</span></p>
+        </li>
+        <li>
+          <time class="date" datetime="2026-09-26"><span class="mo">Sep</span><span class="dy">26</span></time>
+          <div class="what">
+            <p class="label eyebrow">Our House presents</p>
+            <p class="bill">Opening for <strong>Shook Twins</strong></p>
+          </div>
+          <p class="where">Salted Sprig<br><span class="label">Ketchum, Idaho</span></p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="booking" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head"><h2>At a glance</h2></div>
+      <dl class="facts">
+        <div><dt class="label">Hometown</dt><dd>Hailey, Idaho</dd></div>
+        <div><dt class="label">Lineup</dt><dd>Four-piece</dd></div>
+        <div><dt class="label">Sound</dt><dd>Genre-loose, made to groove</dd></div>
+        <div><dt class="label">Instagram</dt><dd><a href="https://www.instagram.com/floorguyy/" target="_blank" rel="noopener">@floorguyy</a></dd></div>
+      </dl>
+      <div class="cta">
+        <a class="btn" href="https://www.instagram.com/floorguyy/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          Follow and message us on Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="blocks" role="presentation"></div>
+<footer>
+  <div class="wrap">
+    <span class="label">Floor Guy · Hailey, Idaho</span>
+    <span class="label">Here to dance, cry and have a good time</span>
+  </div>
+</footer>
+
+</body>
+</html>
