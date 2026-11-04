@@ -101,14 +101,15 @@ a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-rad
 .name {
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(4.6rem, 17vw, 12.5rem);
-  line-height: 0.84;
+  font-size: clamp(2.6rem, 14.5vw, 10rem);
+  white-space: nowrap;
+  line-height: 1;
   margin: 0 0 clamp(20px, 4vw, 40px);
   color: var(--ink);
   text-shadow: 0.04em 0.035em 0 var(--ghost);
 }
-.name .row { display: block; white-space: nowrap; }
-.name .row + .row { padding-left: 0.6em; margin-top: 0.06em; }
+.name .row { display: inline-block; white-space: nowrap; }
+.name .row + .row { margin-left: 0.04em; }
 .name .l { display: inline-block; animation: wiggle 3.2s ease-in-out infinite; transform-origin: 50% 80%; }
 .name .row:last-child .l { animation-name: sink; }
 @keyframes wiggle {
