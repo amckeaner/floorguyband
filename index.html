@@ -174,7 +174,7 @@ h2 {
 /* ---------- about ---------- */
 .about-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(28px, 6vw, 80px);
   align-items: start;
 }
@@ -359,6 +359,35 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .contact-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
 .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); box-shadow: 4px 4px 0 var(--ghost); font: inherit; font-weight: 700; cursor: pointer; }
 
+
+/* ---------- logo ---------- */
+.logo { display: inline-flex; align-items: baseline; gap: 12px; text-decoration: none; color: var(--ink); }
+.logo-word { font-family: var(--display); font-size: 1.55rem; line-height: 1; white-space: nowrap; text-shadow: .05em .05em 0 var(--ghost); }
+.logo-word .l { display: inline-block; animation: wiggle 3.2s ease-in-out infinite; transform-origin: 50% 80%; }
+.logo-word .l:nth-child(n+7) { animation-name: sink; }
+.logo-word .sp { display: inline-block; width: .28em; }
+.logo:hover .logo-word { color: var(--pop); }
+.logo:focus-visible { outline: 2px dashed var(--pop); outline-offset: 6px; border-radius: 6px; }
+
+/* ---------- game ---------- */
+.game-stage { position: relative; width: 100%; max-width: 760px; margin-inline: auto; aspect-ratio: 4 / 5;
+  border: 2px solid var(--ink); background: var(--paper); box-shadow: 6px 6px 0 var(--pop); overflow: hidden; }
+.game-stage canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: pointer; }
+.game-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; padding: 24px; text-align: center; background: color-mix(in srgb, var(--paper) 80%, transparent); }
+.game-title { margin: 0; font-family: var(--display); font-size: clamp(1.8rem, 7vw, 3rem); line-height: 1.05; transform: rotate(-2deg); text-wrap: balance; }
+.game-msg { margin: 0 0 8px; max-width: 34ch; line-height: 1.45; }
+.game-kicker { margin: 0; }
+.game-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; max-width: 760px; margin: 16px auto 0; }
+.game-bar .label { margin: 0; }
+.btn-small { padding: 8px 14px; font-size: .9rem; box-shadow: 3px 3px 0 var(--ghost); }
+@media (min-width: 821px) { .game-stage { aspect-ratio: 4 / 3; } }
+@media (max-width: 480px) {
+  .tabs a[data-tab="home"] { display: none; }
+  .logo-word { font-size: 1.35rem; }
+}
+@media (prefers-reduced-motion: reduce) { .logo-word .l { animation: none; } }
+
 /* ---------- footer ---------- */
 footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
@@ -500,7 +529,7 @@ h2::after {
 
 <header class="topbar">
   <div class="wrap">
-    <span class="label"><strong>Floor Guy</strong> <span class="place">· Hailey, Idaho</span></span>
+    <a class="logo" href="#home" aria-label="Floor Guy, home"><span class="logo-word" aria-hidden="true"><span class="l" style="animation-delay:-0.00s">F</span><span class="l" style="animation-delay:-0.37s">l</span><span class="l" style="animation-delay:-0.74s">o</span><span class="l" style="animation-delay:-1.11s">o</span><span class="l" style="animation-delay:-1.48s">r</span><span class="sp"> </span><span class="l" style="animation-delay:-2.22s">G</span><span class="l" style="animation-delay:-2.59s">u</span><span class="l" style="animation-delay:-2.96s">y</span></span><span class="label place">Hailey, Idaho</span></a>
     <a class="ig-link" href="https://www.instagram.com/floorguyy/" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
       @floorguyy
@@ -513,6 +542,7 @@ h2::after {
     <a href="#shows" data-tab="shows">Shows</a>
     <a href="#photos" data-tab="photos">Photos</a>
     <a href="#videos" data-tab="videos">Videos</a>
+    <a href="#game" data-tab="game">Game</a>
     <a href="#contact" data-tab="contact">Contact</a>
   </div>
 </nav>
@@ -567,10 +597,6 @@ h2::after {
           <p>Emily Freudenberger writes the songs: stories rooted in place, funny one minute and earnest the next. She plays acoustic guitar and piano. Andrew McKean and Sam Dispenza fill in around her, trading bass, guitar, pedal steel, mandolin, banjo and the occasional train whistle. Koko Furlong keeps the whole thing steady from behind the kit.</p>
           <p>They don’t pick a genre and stick to it. They follow whatever sounds good and feels good to move to, and they’d rather sink the floor than raise the roof. Come ready to dance, maybe cry a little, and have a good time.</p>
         </div>
-        <figure class="quote">
-          <p>“<span>sparkle</span>”<br>“<span>whimsical</span>”</p>
-          <figcaption class="label">How Floor Guy has been described</figcaption>
-        </figure>
       </div>
     </div>
   </section>
@@ -705,6 +731,27 @@ h2::after {
   </section>
 </div>
 
+<div class="view" data-view="game" hidden>
+  <section>
+    <div class="wrap">
+      <div class="section-head"><h2>Game</h2><span class="label">a Floor Guy original</span></div>
+      <div class="game-stage" id="game-stage">
+        <canvas id="game-canvas" aria-label="Floor Guy game: catch falling notes and dodge ceiling fans"></canvas>
+        <div class="game-overlay" id="game-overlay">
+          <p class="label game-kicker" id="game-kicker">Floor Guy presents</p>
+          <p class="game-title" id="game-title">Don’t Be a Ceiling Fan</p>
+          <p class="game-msg" id="game-msg">Slide Floor Guy along the floor to catch the falling notes. Pink stars are worth 5. Dodge the ceiling fans. Three bonks and you’re out.</p>
+          <button class="btn" id="game-btn" type="button">Play</button>
+        </div>
+      </div>
+      <div class="game-bar">
+        <p class="label">Drag or tap to move · arrow keys work too</p>
+        <button class="btn btn-ghost btn-small" id="game-sound" type="button" aria-pressed="true">Sound: on</button>
+      </div>
+    </div>
+  </section>
+</div>
+
 <div class="view" data-view="contact" hidden>
   <section>
     <div class="wrap">
@@ -727,7 +774,7 @@ h2::after {
 
 <div class="floor-scene">
   <div class="wrap">
-    <p class="floor-caption">Meet <b>Floor Guy</b>. He's doing great. He'd love it if you danced.</p>
+    <p class="floor-caption">Meet <b>Floor Guy</b>. He's doing great. He'd love it if you danced. <a href="#game">Play his game →</a></p>
     <svg class="floorguy" viewBox="0 0 240 84" role="img" aria-label="A doodle of Floor Guy lying on his back on the floor, hands behind his head, tapping one foot">
       <g fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
         <path class="note" d="M50 30 V16 l9 3"/><circle class="note" cx="47" cy="31" r="3.4" fill="var(--ink)" stroke="none"/>
@@ -813,7 +860,7 @@ h2::after {
 </script>
 <script>
 (function () {
-  var names = ['home', 'shows', 'photos', 'videos', 'contact'];
+  var names = ['home', 'shows', 'photos', 'videos', 'game', 'contact'];
   var views = {};
   document.querySelectorAll('.view').forEach(function (v) { views[v.getAttribute('data-view')] = v; });
   var tabs = document.querySelectorAll('.tabs a');
@@ -858,6 +905,7 @@ h2::after {
   document.addEventListener('pointerdown', function (e) {
     var lb = document.getElementById('lightbox');
     if (lb && !lb.hidden) return;
+    if (e.target.closest && e.target.closest('.game-stage')) return;
     sparkle(e.clientX, e.clientY, 7);
   });
 
@@ -904,6 +952,11 @@ h2::after {
     setTimeout(function () { p.remove(); }, 1500);
     setTimeout(function () { name.classList.remove('toot'); }, 1000);
   }
+  var logo = document.querySelector('.logo');
+  if (logo) logo.addEventListener('click', function (e) {
+    var h = location.hash.replace('#', '');
+    if (!h || h === 'home') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); if (name) fire(); }
+  });
   if (name) {
     name.addEventListener('click', fire);
     name.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fire(); } });
@@ -924,6 +977,289 @@ h2::after {
     };
     try { navigator.clipboard.writeText('hello@floorguy.band').then(done, fallback); } catch (e) { fallback(); }
   });
+})();
+</script>
+<script>
+(function () {
+  var stage = document.getElementById('game-stage');
+  if (!stage) return;
+  var cv = document.getElementById('game-canvas'), ctx = cv.getContext('2d');
+  var overlay = document.getElementById('game-overlay');
+  var titleEl = document.getElementById('game-title'), msgEl = document.getElementById('game-msg'), kickerEl = document.getElementById('game-kicker');
+  var btn = document.getElementById('game-btn'), soundBtn = document.getElementById('game-sound');
+  var W = 0, H = 0, dpr = 1, C = {};
+  var state = 'ready', last = 0, raf = 0, t = 0, elapsed = 0;
+  var px = 0, tx = 0, facing = 1, lives = 3, score = 0, best = 0, items = [], pops = [], noteTimer = 0, fanTimer = 0, hitFlash = 0, shake = 0;
+  var keys = {}, soundOn = true, ac = null;
+  try { best = parseInt(localStorage.getItem('floorguy-best') || '0', 10) || 0; } catch (e) {}
+
+  var STAR = new Path2D('M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z');
+  var P = {
+    arm: new Path2D('M58 70 L46 48 L26 58'),
+    hair: new Path2D('M25 60 q3 -9 11 -7 q2 -6 9 -3'),
+    eyes: new Path2D('M30 65 q2 -2 4 0 M39 63 q2 -2 4 0'),
+    ouch: new Path2D('M29 62 l5 5 M34 62 l-5 5 M38 61 l5 5 M43 61 l-5 5'),
+    smile: new Path2D('M32 71 q5 4 10 -1'),
+    torso: new Path2D('M49 69 Q90 64 132 71'),
+    leg: new Path2D('M132 71 L172 74 L206 76 l6 -9'),
+    kick: new Path2D('M132 71 L160 40 L182 74 l11 0')
+  };
+  function colors() {
+    var cs = getComputedStyle(document.documentElement);
+    C.ink = cs.getPropertyValue('--ink').trim() || '#121212';
+    C.paper = cs.getPropertyValue('--paper').trim() || '#ebeae6';
+    C.pop = cs.getPropertyValue('--pop').trim() || '#ff4d94';
+    C.soft = cs.getPropertyValue('--ink-soft').trim() || '#4a4a47';
+    C.block = cs.getPropertyValue('--block').trim() || '#cfcec8';
+    C.mortar = cs.getPropertyValue('--mortar').trim() || '#8f8e89';
+    C.display = (cs.getPropertyValue('--display') || 'Georgia').trim();
+    C.mono = (cs.getPropertyValue('--mono') || 'monospace').trim();
+  }
+  function scale() { return Math.max(0.52, Math.min(0.66, W / 1150)); }
+  function floorY() { return H - 30; }
+  function resize() {
+    var r = stage.getBoundingClientRect();
+    if (!r.width) return;
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    W = r.width; H = r.height;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    colors();
+    if (!px) px = tx = W / 2;
+    px = Math.min(Math.max(px, 40), W - 40); tx = px;
+    if (state !== 'play') draw();
+  }
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(stage);
+  window.addEventListener('resize', resize);
+
+  // ---- sound
+  function audio() { try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); } catch (e) {} }
+  function tone(f, dur, type, vol, f2) {
+    if (!soundOn || !ac) return;
+    var o = ac.createOscillator(), g = ac.createGain(), t0 = ac.currentTime;
+    o.type = type || 'triangle'; o.frequency.setValueAtTime(f, t0);
+    if (f2) o.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
+    g.gain.setValueAtTime(vol || 0.14, t0); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(ac.destination); o.start(t0); o.stop(t0 + dur + 0.02);
+  }
+  var SCALE = [523, 587, 659, 784, 880, 1047, 1175];
+  var step = 0;
+  function blip() { tone(SCALE[step % SCALE.length], 0.2, 'triangle', 0.13); step += (Math.random() < 0.7 ? 1 : 2); }
+  function sparkleSound() { tone(1047, 0.12, 'sine', 0.1); setTimeout(function () { tone(1568, 0.22, 'sine', 0.1); }, 70); }
+  function bonk() { tone(180, 0.28, 'square', 0.08, 70); }
+  function sadTrombone() { [392, 370, 349, 311].forEach(function (f, i) { setTimeout(function () { tone(f, i === 3 ? 0.7 : 0.3, 'sawtooth', 0.06, i === 3 ? 280 : 0); }, i * 280); }); }
+
+  // ---- drawing
+  function drawGuy(x, s, ouch) {
+    var fy = floorY();
+    ctx.save();
+    ctx.translate(x, fy - 2);
+    if (shake > 0) ctx.translate((Math.random() - .5) * 6, 0);
+    ctx.scale(s * facing, s);
+    ctx.translate(-118, -80);
+    ctx.lineWidth = 3.2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = C.ink;
+    ctx.stroke(P.arm);
+    ctx.beginPath(); ctx.arc(36, 66, 13, 0, Math.PI * 2); ctx.fillStyle = hitFlash > 0 ? C.pop : C.paper; ctx.fill(); ctx.stroke();
+    ctx.stroke(P.hair);
+    ctx.stroke(ouch ? P.ouch : P.eyes);
+    ctx.stroke(P.smile);
+    ctx.stroke(P.torso); ctx.stroke(P.leg);
+    ctx.save(); ctx.translate(132, 71); ctx.rotate(Math.sin(t * 7) * 0.16 - 0.04); ctx.translate(-132, -71); ctx.stroke(P.kick); ctx.restore();
+    ctx.restore();
+  }
+  function drawNote(x, y, r, col, rot) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot);
+    ctx.fillStyle = col; ctx.strokeStyle = col; ctx.lineWidth = Math.max(2, r * 0.28); ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.ellipse(-r * 0.25, r * 0.55, r * 0.55, r * 0.42, -0.35, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(r * 0.25, r * 0.5); ctx.lineTo(r * 0.25, -r * 0.9); ctx.lineTo(r * 0.8, -r * 0.65); ctx.stroke();
+    ctx.restore();
+  }
+  function drawStar(x, y, r, col, rot) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(r / 12, r / 12); ctx.translate(-12, -12);
+    ctx.fillStyle = col; ctx.fill(STAR); ctx.restore();
+  }
+  function drawFan(x, y, r, a) {
+    ctx.save(); ctx.translate(x, y);
+    ctx.strokeStyle = C.ink; ctx.fillStyle = C.ink; ctx.lineCap = 'round';
+    ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(0, -r * 0.9); ctx.lineTo(0, -r * 0.15); ctx.stroke();
+    ctx.lineWidth = Math.max(4, r * 0.3);
+    for (var i = 0; i < 4; i++) {
+      var ang = a + i * Math.PI / 2;
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(ang) * r, Math.sin(ang) * r * 0.32); ctx.stroke();
+    }
+    ctx.beginPath(); ctx.ellipse(0, 0, r * 0.22, r * 0.16, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, r * 0.12); ctx.lineTo(0, r * 0.45); ctx.stroke();
+    ctx.beginPath(); ctx.arc(0, r * 0.5, r * 0.07, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+  function drawFloor() {
+    var fy = floorY();
+    ctx.fillStyle = C.block; ctx.fillRect(0, fy, W, H - fy);
+    ctx.strokeStyle = C.mortar; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(0, fy + 1.5); ctx.lineTo(W, fy + 1.5); ctx.moveTo(0, fy + 15); ctx.lineTo(W, fy + 15); ctx.stroke();
+    ctx.beginPath();
+    for (var x = 0; x < W + 72; x += 72) { ctx.moveTo(x, fy); ctx.lineTo(x, fy + 15); ctx.moveTo(x + 36, fy + 15); ctx.lineTo(x + 36, H); }
+    ctx.stroke();
+  }
+  function drawCeiling() {
+    ctx.strokeStyle = C.ink; ctx.lineWidth = 2; ctx.setLineDash([2, 7]); ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(0, 6); ctx.lineTo(W, 6); ctx.stroke(); ctx.setLineDash([]);
+  }
+  function drawHud() {
+    ctx.fillStyle = C.ink; ctx.textBaseline = 'top';
+    ctx.font = Math.round(Math.max(20, W * 0.04)) + 'px ' + C.display;
+    ctx.textAlign = 'left'; ctx.fillText(String(score), 16, 16);
+    ctx.font = '11px ' + C.mono; ctx.fillStyle = C.soft;
+    ctx.fillText('NOTES · BEST ' + best, 16, 16 + Math.max(22, W * 0.045));
+    for (var i = 0; i < 3; i++) drawStar(W - 22 - i * 26, 28, 10, i < lives ? C.pop : C.mortar, 0);
+  }
+  function draw() {
+    if (!W) return;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = C.paper; ctx.fillRect(0, 0, W, H);
+    if (hitFlash > 0) { ctx.fillStyle = C.pop; ctx.globalAlpha = Math.min(0.25, hitFlash); ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
+    drawCeiling();
+    var s = scale();
+    items.forEach(function (it) {
+      if (it.kind === 'fan') drawFan(it.x, it.y, it.r, it.rot);
+      else if (it.kind === 'star') drawStar(it.x, it.y, it.r, C.pop, it.rot);
+      else drawNote(it.x, it.y, it.r, it.col, it.rot);
+    });
+    drawFloor();
+    drawGuy(px || W / 2, s, hitFlash > 0 || state === 'over');
+    pops.forEach(function (p) {
+      ctx.globalAlpha = Math.max(0, p.life); ctx.fillStyle = p.col; ctx.textAlign = 'center';
+      ctx.font = '20px ' + C.display; ctx.fillText(p.text, p.x, p.y); ctx.globalAlpha = 1;
+    });
+    if (state !== 'ready') drawHud();
+  }
+
+  // ---- game logic
+  function spawn(kind) {
+    var k = H / 560, r;
+    if (kind === 'fan') {
+      r = Math.max(22, W * 0.045);
+      items.push({ kind: 'fan', x: r + Math.random() * (W - 2 * r), y: -r, r: r, vy: (95 + elapsed * 2.6 + Math.random() * 40) * k, rot: 0, vr: 9 + Math.random() * 5, ph: Math.random() * 6, sway: 20 + Math.random() * 30 });
+    } else {
+      var star = Math.random() < 0.1;
+      r = star ? Math.max(14, W * 0.028) : Math.max(13, W * 0.026);
+      items.push({ kind: star ? 'star' : 'note', x: r + Math.random() * (W - 2 * r), y: -r, r: r, vy: (140 + elapsed * 3.4 + Math.random() * 60) * k,
+        rot: (Math.random() - .5) * .6, vr: (Math.random() - .5) * 3, col: Math.random() < .5 ? C.pop : C.ink });
+    }
+  }
+  function update(dt) {
+    t += dt; elapsed += dt;
+    if (keys.left) tx -= 520 * dt;
+    if (keys.right) tx += 520 * dt;
+    var s = scale(), hw = 95 * s, margin = hw * 0.8;
+    tx = Math.min(Math.max(tx, margin), W - margin);
+    var dx = tx - px; px += dx * Math.min(1, dt * 12);
+    if (Math.abs(dx) > 2) facing = dx > 0 ? 1 : -1;
+    noteTimer -= dt; fanTimer -= dt;
+    if (noteTimer <= 0) { spawn('note'); noteTimer = Math.max(0.32, 0.85 - elapsed * 0.01) * (0.7 + Math.random() * 0.6); }
+    if (fanTimer <= 0) { if (elapsed > 2) spawn('fan'); fanTimer = Math.max(0.8, 2.6 - elapsed * 0.035) * (0.7 + Math.random() * 0.6); }
+    var fy = floorY(), top = fy - 48 * s;
+    for (var i = items.length - 1; i >= 0; i--) {
+      var it = items[i];
+      it.y += it.vy * dt; it.rot += it.vr * dt;
+      if (it.kind === 'fan') it.x += Math.sin(it.y * 0.02 + it.ph) * it.sway * dt;
+      var hit = it.y + it.r * 0.6 >= top && it.y - it.r <= fy && Math.abs(it.x - px) <= hw + it.r * 0.5;
+      if (hit) {
+        items.splice(i, 1);
+        if (it.kind === 'fan') {
+          lives--; hitFlash = 0.45; shake = 0.3; bonk();
+          pops.push({ text: 'bonk!', x: it.x, y: top - 10, life: 1, col: C.ink });
+          if (lives <= 0) { gameOver(); return; }
+        } else {
+          var pts = it.kind === 'star' ? 5 : 1;
+          score += pts;
+          if (pts > 1) sparkleSound(); else blip();
+          pops.push({ text: '+' + pts, x: it.x, y: top - 10, life: 1, col: it.kind === 'star' ? C.pop : C.ink });
+        }
+      } else if (it.y - it.r > H) items.splice(i, 1);
+    }
+    for (var j = pops.length - 1; j >= 0; j--) { pops[j].y -= 40 * dt; pops[j].life -= dt * 1.4; if (pops[j].life <= 0) pops.splice(j, 1); }
+    hitFlash = Math.max(0, hitFlash - dt); shake = Math.max(0, shake - dt);
+  }
+  function frame(now) {
+    if (state !== 'play') return;
+    if (document.hidden || !stage.offsetParent) { pause(); return; }
+    var dt = Math.min(0.05, (now - last) / 1000 || 0); last = now;
+    update(dt); draw();
+    if (state === 'play') raf = requestAnimationFrame(frame);
+  }
+  function showOverlay(kicker, title, msg, label) {
+    kickerEl.textContent = kicker; titleEl.textContent = title; msgEl.textContent = msg; btn.textContent = label;
+    overlay.hidden = false;
+  }
+  function start() {
+    audio(); colors();
+    if (state !== 'paused') {
+      items = []; pops = []; score = 0; lives = 3; elapsed = 0; noteTimer = 0.3; fanTimer = 2.5; hitFlash = 0; step = 0;
+      px = tx = W / 2;
+    }
+    state = 'play'; overlay.hidden = true;
+    last = performance.now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(frame);
+  }
+  function pause() {
+    if (state !== 'play') return;
+    state = 'paused'; cancelAnimationFrame(raf);
+    showOverlay('Paused', 'Floor Guy is resting', 'He does that. Your score is safe: ' + score + '.', 'Keep going');
+  }
+  var LINES = ['Fans 1, Floor Guy 0.', 'A ceiling fan got the better of him.', 'Floor Guy needs a minute on the floor. (He was already on the floor.)', 'Don’t be a ceiling fan. Be a Floor Guy.'];
+  function gameOver() {
+    state = 'over'; cancelAnimationFrame(raf);
+    var newBest = score > best;
+    if (newBest) { best = score; try { localStorage.setItem('floorguy-best', String(best)); } catch (e) {} }
+    sadTrombone(); draw();
+    showOverlay(newBest ? 'New best!' : 'Game over',
+      score + (score === 1 ? ' note' : ' notes'),
+      LINES[Math.floor(Math.random() * LINES.length)] + (newBest ? '' : ' Best: ' + best + '.'),
+      'Play again');
+  }
+  btn.addEventListener('click', start);
+  soundBtn.addEventListener('click', function () {
+    soundOn = !soundOn;
+    soundBtn.textContent = 'Sound: ' + (soundOn ? 'on' : 'off');
+    soundBtn.setAttribute('aria-pressed', String(soundOn));
+  });
+
+  // ---- input
+  function pointerX(e) { var r = cv.getBoundingClientRect(); return e.clientX - r.left; }
+  var dragging = false;
+  cv.addEventListener('pointerdown', function (e) {
+    if (state !== 'play') return;
+    dragging = true; tx = pointerX(e);
+    try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  cv.addEventListener('pointermove', function (e) { if (state === 'play' && (dragging || e.pointerType === 'mouse')) tx = pointerX(e); });
+  cv.addEventListener('pointerup', function () { dragging = false; });
+  cv.addEventListener('pointercancel', function () { dragging = false; });
+  document.addEventListener('keydown', function (e) {
+    if (!stage.offsetParent) return;
+    var k = e.key;
+    if (k === 'ArrowLeft' || k === 'a' || k === 'A') { keys.left = true; e.preventDefault(); }
+    else if (k === 'ArrowRight' || k === 'd' || k === 'D') { keys.right = true; e.preventDefault(); }
+    else if ((k === ' ' || k === 'Enter') && state !== 'play' && document.activeElement === document.body) { e.preventDefault(); start(); }
+  });
+  document.addEventListener('keyup', function (e) {
+    if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = false;
+    if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = false;
+  });
+  window.addEventListener('hashchange', function () { if (state === 'play' && location.hash !== '#game') pause(); setTimeout(resize, 30); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) pause(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { colors(); if (state !== 'play') draw(); });
+
+  // idle scene behind the start screen
+  colors(); resize();
+  items = [];
+  for (var n = 0; n < 6; n++) items.push({ kind: n === 2 ? 'fan' : (n === 4 ? 'star' : 'note'), x: 0, y: 0, r: 16, rot: (Math.random() - .5), col: n % 2 ? C.pop : C.ink, fx: (n + 0.5) / 6, fy: 0.15 + (n % 3) * 0.17 });
+  function layoutIdle() { items.forEach(function (it) { if (it.fx != null) { it.x = it.fx * W; it.y = it.fy * H; it.r = it.kind === 'fan' ? Math.max(22, W * 0.045) : 16; } }); }
+  var _resize = resize;
+  resize = function () { _resize(); if (state === 'ready') { layoutIdle(); draw(); } };
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(stage);
+  layoutIdle(); draw();
 })();
 </script>
 </body></html>
