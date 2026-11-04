@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Floor Guy</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Floor Guy</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Floor Guy is a four-piece band from Hailey, Idaho: Emily Freudenberger, Andrew McKean, Sam Dispenza and Koko Furlong.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -308,6 +308,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .view[data-view="home"] .hero .wrap { padding-top: clamp(16px, 4vw, 40px); }
 
 /* ---------- upcoming ---------- */
+.next { display: block; text-decoration: none; background: var(--ink); color: var(--paper); }
+.next-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; padding-block: 12px; }
+.next-label { color: var(--paper); opacity: .7; }
+.next-text { font-weight: 500; }
+.next-cta { font-weight: 700; text-decoration: underline wavy; text-underline-offset: 5px; }
+.next:hover .next-cta { text-decoration-style: solid; }
+.upcoming .date { background: var(--ink); color: var(--paper); }
+.vote { margin: 8px 0 0; font-weight: 700; text-decoration: underline wavy var(--ink-soft) 1.5px; text-underline-offset: 6px; }
 .empty { border: 1.5px dashed var(--ink-soft); padding: 22px 24px; max-width: 62ch; }
 .empty p { margin: 0; font-size: var(--step-1); line-height: 1.45; }
 .empty a { text-underline-offset: 4px; }
@@ -385,6 +393,13 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
 
 <main>
 <div class="view" data-view="home">
+  <a class="next" href="#shows">
+    <span class="wrap next-row">
+      <span class="label next-label">Next show</span>
+      <span class="next-text">Sat, Nov 21 · Battle of the Bands at the Liberty Theatre, Hailey</span>
+      <span class="next-cta">Come vote for us →</span>
+    </span>
+  </a>
   <section class="hero" style="padding:0">
     <div class="wrap">
       <h1 class="name" aria-label="Floor Guy">
@@ -459,9 +474,17 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
   <section>
     <div class="wrap">
       <div class="section-head"><h2>Upcoming</h2></div>
-      <div class="empty">
-        <p>No dates on the calendar yet. Follow <a href="https://www.instagram.com/floorguyy/" target="_blank" rel="noopener">@floorguyy</a> on Instagram to hear about the next one first.</p>
-      </div>
+      <ol class="shows upcoming">
+        <li>
+          <time class="date" datetime="2026-11-21T15:30"><span class="mo">Nov</span><span class="dy">21</span></time>
+          <div class="what">
+            <p class="label eyebrow">Saturday · 3:30 PM</p>
+            <p class="bill"><strong>Battle of the Bands</strong></p>
+            <p class="vote">Fans pick the winner. Come vote for Floor Guy!</p>
+          </div>
+          <p class="where">Liberty Theatre<br><span class="label">Hailey, Idaho</span></p>
+        </li>
+      </ol>
       <div class="section-head" style="margin-top:clamp(48px,7vw,80px)"><h2>Past shows</h2><span class="label">2026</span></div>
       <ol class="shows">
         <li>
