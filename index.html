@@ -313,7 +313,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .view[data-view="home"] .hero .wrap { padding-top: clamp(4px, 2vw, 16px); }
 
 /* ---------- upcoming ---------- */
-.next-wrap { display: flex; justify-content: center; padding-block: 16px 0; }
+.next-wrap { display: flex; justify-content: center; padding-block: 16px 4px; }
 .next {
   display: inline-flex; align-items: center; gap: 10px; max-width: 100%;
   text-decoration: none; color: var(--pop-ink); background: var(--pop);
@@ -451,18 +451,19 @@ body { overflow-x: clip; }
 /* hero: floating doodles */
 /* name, centered, with notes and wiggles around it */
 .name-wrap { text-align: center; }
-.name-box { position: relative; display: inline-block; font-size: clamp(2.5rem, 12.6vw, 8.6rem); padding: 0.42em 0.5em 0.36em; }
+.name-box { position: relative; display: inline-block; font-size: clamp(2.5rem, 12.6vw, 8.6rem); padding: 0.62em 0.52em 0.56em; }
+.name-wrap { margin-bottom: 14px; }
 .name-box .name { font-size: 1em; margin: 0; }
 .dd { position: absolute; display: block; pointer-events: none; animation: drift 4.5s ease-in-out infinite; }
 .dd svg { display: block; width: 100%; height: auto; overflow: visible; }
-.dd1 { width: .26em; left: .06em; top: .3em; animation-delay: -1s; }
-.dd2 { width: .2em; left: .16em; bottom: .02em; animation-delay: -2.2s; animation-duration: 5.3s; }
-.dd3 { width: .6em; left: 1.1em; top: .04em; animation-delay: -.4s; animation-duration: 3.8s; }
-.dd4 { width: .16em; left: 3.2em; top: .02em; animation-delay: -3s; animation-duration: 5.9s; }
-.dd5 { width: .22em; right: .1em; top: .16em; animation-delay: -1.6s; animation-duration: 4.2s; }
-.dd6 { width: .55em; right: .06em; bottom: .12em; animation-delay: -2.7s; animation-duration: 5s; }
-.dd7 { width: .2em; left: 2.4em; bottom: -.02em; animation-delay: -.9s; animation-duration: 4.6s; }
-.dd8 { width: .17em; right: 1.5em; bottom: -.04em; animation-delay: -3.6s; animation-duration: 6.2s; }
+.dd1 { width: .24em; left: .04em; top: .5em; animation-delay: -1s; }
+.dd2 { width: .19em; left: .14em; bottom: .14em; animation-delay: -2.2s; animation-duration: 5.3s; }
+.dd3 { width: .55em; left: 1.1em; top: .2em; animation-delay: -.4s; animation-duration: 3.8s; }
+.dd4 { width: .16em; left: 3.1em; top: .2em; animation-delay: -3s; animation-duration: 5.9s; }
+.dd5 { width: .2em; right: .08em; top: .3em; animation-delay: -1.6s; animation-duration: 4.2s; }
+.dd6 { width: .5em; right: .04em; bottom: .22em; animation-delay: -2.7s; animation-duration: 5s; }
+.dd7 { width: .18em; left: 2.3em; bottom: .12em; animation-delay: -.9s; animation-duration: 4.6s; }
+.dd8 { width: .16em; right: 1.5em; bottom: .1em; animation-delay: -3.6s; animation-duration: 6.2s; }
 @keyframes drift { 0%, 100% { transform: translateY(6px) rotate(-8deg); } 50% { transform: translateY(-10px) rotate(10deg); } }
 
 /* ticker */
