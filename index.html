@@ -774,7 +774,7 @@ h2::after {
 
 <div class="floor-scene">
   <div class="wrap">
-    <p class="floor-caption">Meet <b>Floor Guy</b>. He's doing great. He'd love it if you <a class="game-link" href="#game">played his game →</a></p>
+    <p class="floor-caption"><span id="fg-blurb"><b>Floor Guy</b> is doing great. Thanks for asking.</span> He'd love it if you <a class="game-link" href="#game">played his game →</a></p>
     <svg class="floorguy" viewBox="0 0 240 95" role="img" aria-label="A doodle of Floor Guy in sunglasses and a striped shirt, lying on the floor with one knee up, tapping his foot">
       <g stroke="var(--ink)" stroke-linecap="round" stroke-linejoin="round" fill="none">
         <path class="note" d="M62 34 V18 l10 3" stroke-width="3"/><ellipse class="note" cx="58.5" cy="35" rx="4.2" ry="3.3" fill="var(--ink)" stroke="none"/>
@@ -1284,6 +1284,27 @@ h2::after {
   resize = function () { _resize(); if (state === 'ready') { layoutIdle(); draw(); } };
   if (window.ResizeObserver) new ResizeObserver(resize).observe(stage);
   layoutIdle(); draw();
+})();
+</script>
+<script>
+(function () {
+  var LINES = ["Floor Guy has never once been on a ceiling.", "Floor Guy built the pyramids, but only the bottom row.", "Floor Guy's favorite animal is the rug.", "Floor Guy can hear the basement breathing.", "Floor Guy lay down for a nap in 2009 and is still going.", "Floor Guy thinks stairs are a scam.", "Floor Guy holds the world record for most carpets met.", "Floor Guy is technically a mattress.", "Floor Guy owns eleven pairs of sunglasses and one pair of shoes.", "Floor Guy considers gravity his best friend.", "Floor Guy can do one push-up and is extremely proud of it.", "Floor Guy was voted Most Horizontal three years running.", "Floor Guy taught a robot vacuum to two-step.", "Floor Guy has strong opinions about grout.", "Floor Guy's biggest dream is to be stepped over gently.", "Floor Guy tried a chair once. Never again.", "Floor Guy communicates mainly through foot taps.", "Floor Guy thinks the ceiling is showing off.", "Floor Guy's love language is floorboards.", "Floor Guy keeps his snacks in the floor vent.", "Floor Guy can name every crumb under the couch.", "Floor Guy has been to the moon. He lay down there too.", "Floor Guy says hi to every ant personally.", "Floor Guy's horoscope just says \"stay down.\"", "Floor Guy is currently 40% dust bunny.", "Floor Guy got a fan letter from a doormat.", "Floor Guy is writing a memoir called \"Down to Earth.\"", "Floor Guy thinks hammocks are floors that gave up.", "Floor Guy once out-waited a cat.", "Floor Guy's favorite weather is linoleum.", "Floor Guy can hum in the key of hardwood.", "Floor Guy knows where you dropped that earring.", "Floor Guy's tapping foot has its own agent.", "Floor Guy only drinks water that's been spilled first.", "Floor Guy is the reason the downstairs neighbors dance.", "Floor Guy thinks elevators are tiny rooms with anxiety.", "Floor Guy was briefly a ceiling fan in college. He doesn't talk about it.", "Floor Guy has a black belt in lying down.", "Floor Guy can tell your shoe size by your footsteps.", "Floor Guy believes in you, from a very low angle.", "Floor Guy just learned what \"upstairs\" means and is upset.", "Floor Guy's sunglasses are prescription for vibes.", "Floor Guy has never lost a staring contest with a lamp.", "Floor Guy invented the snow angel, the indoor version.", "Floor Guy wants his face on a penny, lying down.", "Floor Guy is friends with every tile in Hailey.", "Floor Guy keeps a diary in the cracks between the floorboards.", "Floor Guy's striped shirt has eight secret pockets. All empty.", "Floor Guy has been mistaken for a speed bump twice.", "Floor Guy can sense a dropped french fry from three rooms away.", "Floor Guy's ideal date is a long lie on the beach.", "Floor Guy has a crush on a beanbag.", "Floor Guy gave a big speech once. Nobody could see him over the podium.", "Floor Guy knows the floor is lava and is totally fine with it.", "Floor Guy is training for the 100-meter lie-down.", "Floor Guy thinks the word \"standing\" is a little rude.", "Floor Guy wrote a symphony for squeaky floorboard.", "Floor Guy's spirit animal is a flounder.", "Floor Guy might be three raccoons in a striped shirt, lying down.", "Floor Guy grows a tiny garden of carpet fuzz.", "Floor Guy pays rent in dance moves.", "Floor Guy sneezed once in 1998 and the whole house shook.", "Floor Guy is allergic to ladders.", "Floor Guy has never seen the top of a fridge and prefers it that way.", "Floor Guy can do the worm, but in reverse.", "Floor Guy's favorite planet is the floor.", "Floor Guy thinks tall people are just ceiling-curious.", "Floor Guy waves at airplanes. They never wave back.", "Floor Guy has a pet pebble named Gerald.", "Floor Guy lost a sock in 2014 and is still looking.", "Floor Guy caught a falling star once. It was a pink one.", "Floor Guy's foot has tapped four million times today.", "Floor Guy only reads books about basements.", "Floor Guy is the mayor of Under The Table.", "Floor Guy thinks shelves are just floors on stilts.", "Floor Guy has never been bonked by a ceiling fan. (He has.)", "Floor Guy keeps a spare floor in his pocket.", "Floor Guy's sunglasses have sunglasses.", "Floor Guy believes every floor is a dance floor if you're brave enough.", "Floor Guy got a standing ovation once and found it very confusing.", "Floor Guy is fluent in Rug.", "Floor Guy's favorite holiday is Groundhog Day.", "Floor Guy can smell a mop coming.", "Floor Guy took a selfie. It's mostly ceiling.", "Floor Guy thinks clouds are floors for birds.", "Floor Guy has been floor-certified since birth.", "Floor Guy's biggest fear is a really, really tall ceiling.", "Floor Guy only trusts things that are level.", "Floor Guy has a secret handshake with the welcome mat.", "Floor Guy got lost in a parking garage and lived his best life.", "Floor Guy belongs to a very exclusive club: everyone lying down.", "Floor Guy did yoga once and fell asleep in the first pose.", "Floor Guy counts sheep at night, but they're lying down too.", "Floor Guy's ringtone is a train whistle.", "Floor Guy once told a chandelier to calm down.", "Floor Guy is in a long-distance relationship with the ceiling.", "Floor Guy's foot is tapping to a song only he can hear. It slaps.", "Floor Guy has a tiny sticker on his shoe that says \"more floor.\"", "Floor Guy thinks a sunset is just the sun lying down. Respect.", "Floor Guy is doing great. Thanks for asking."];
+  var el = document.getElementById('fg-blurb');
+  if (!el) return;
+  var last = -1;
+  function pick() {
+    var i;
+    do { i = Math.floor(Math.random() * LINES.length); } while (i === last && LINES.length > 1);
+    last = i;
+    el.textContent = '';
+    var line = LINES[i], k = line.indexOf('Floor Guy');
+    if (k < 0) { el.textContent = line; return; }
+    el.appendChild(document.createTextNode(line.slice(0, k)));
+    var b = document.createElement('b'); b.textContent = 'Floor Guy'; el.appendChild(b);
+    el.appendChild(document.createTextNode(line.slice(k + 9)));
+  }
+  pick();
+  window.addEventListener('hashchange', pick);
 })();
 </script>
 </body></html>
