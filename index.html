@@ -221,8 +221,13 @@ h2 {
 .g-wide { grid-column: span 12; aspect-ratio: 21 / 9; }
 .g-half { grid-column: span 6; aspect-ratio: 4 / 3; }
 .g-strip { grid-column: span 12; aspect-ratio: 10 / 3; }
-.gallery .g-cymbal, .gallery .g-teal { position: relative; min-height: 220px; }
-.gallery .g-cymbal img, .gallery .g-teal img { position: absolute; inset: 0; }
+.g-steel { grid-column: span 8; aspect-ratio: 4 / 3; }
+.g-portrait { grid-column: span 4; }
+.g-low { grid-column: span 12; aspect-ratio: 2 / 1; }
+.g-low img { object-position: 50% 70%; }
+.gallery .g-cymbal, .gallery .g-teal, .gallery .g-portrait { position: relative; min-height: 220px; }
+.gallery .g-cymbal img, .gallery .g-teal img, .gallery .g-portrait img { position: absolute; inset: 0; }
+.g-portrait img { object-position: 50% 40%; }
 
 /* ---------- shows ---------- */
 .shows { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--ink); }
@@ -284,7 +289,9 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
   .hero-photo img { aspect-ratio: 1 / 1; }
   .band-photo { max-width: 420px; margin-inline: auto 12px; }
   .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .g-crowd, .g-pink, .g-half { grid-column: span 12; }
+  .g-crowd, .g-pink, .g-half, .g-steel { grid-column: span 12; }
+  .g-portrait { grid-column: span 12; aspect-ratio: 3 / 4; }
+  .g-low { aspect-ratio: 4 / 3; }
   .g-cymbal, .g-teal { grid-column: span 6; aspect-ratio: 3 / 4; }
   .g-wide { aspect-ratio: 16 / 9; }
   .g-strip { aspect-ratio: 2 / 1; }
@@ -381,6 +388,9 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
         <figure class="g-cymbal"><img src="img/cymbal.jpg" alt="A band member in a furry animal onesie holding a microphone up to a cymbal." width="1050" height="1400" loading="lazy"></figure>
         <figure class="g-pink"><img src="img/stage-pink.jpg" alt="Floor Guy on stage under hot pink light, with electric guitar, drums, acoustic guitar and keyboard." width="1400" height="1050" loading="lazy"></figure>
         <figure class="g-teal"><img src="img/stage-teal.jpg" alt="Floor Guy on stage under teal light with paper bats on the wall behind the drummer." width="1050" height="1400" loading="lazy"></figure>
+        <figure class="g-steel"><img src="img/sprig-steel.jpg" alt="Floor Guy in matching tan blazers and sunglasses playing at Salted Sprig: pedal steel, drums, acoustic guitar with vocals, and bass." width="1600" height="1200" loading="lazy"></figure>
+        <figure class="g-portrait"><img src="img/sprig-portrait.jpg" alt="The four members of Floor Guy smiling arm in arm on stage in blazers and boots under a crystal chandelier." width="1200" height="1600" loading="lazy"></figure>
+        <figure class="g-low"><img src="img/sprig-low.jpg" alt="Low-angle view of Floor Guy on stage at Salted Sprig, electric guitar on the left and the singer at center mic, warm and blue light on the walls." width="1600" height="1200" loading="lazy"></figure>
         <figure class="g-wide"><img src="img/out-green-close.jpg" alt="Floor Guy playing outdoors at night in animal onesies under green light and string lights, a fan dancing in the foreground." width="1600" height="901" loading="lazy"></figure>
         <figure class="g-half"><img src="img/out-blue.jpg" alt="A crowd in winter hats facing the band on an outdoor stage lit blue, string lights strung between pine trees." width="1600" height="1200" loading="lazy"></figure>
         <figure class="g-half"><img src="img/out-green-crowd.jpg" alt="A dancing crowd in green light in front of the band's outdoor stage under a big pine tree." width="1600" height="1200" loading="lazy"></figure>
