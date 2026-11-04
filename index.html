@@ -1,9 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Floor Guy</title>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Floor Guy</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Floor Guy is a four-piece band from Hailey, Idaho: Emily Freudenberger, Andrew McKean, Sam Dispenza and Koko Furlong.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,8 +41,12 @@
   color-scheme: dark;
 }
 
-html { background: var(--paper); }
+[hidden] { display: none !important; }
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--paper); -webkit-text-size-adjust: 100%; }
+img { max-width: 100%; }
 body {
+  margin: 0;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--body);
@@ -289,6 +288,40 @@ body.lb-open { overflow: hidden; }
 .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ghost); }
 .btn svg { width: 18px; height: 18px; }
 
+
+/* ---------- tabs ---------- */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 45; background: var(--paper); }
+.tabs {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40;
+  background: var(--paper);
+  border-block: 1.5px solid var(--ink);
+}
+.tabs-row { display: flex; gap: 6px; overflow-x: auto; padding-block: 8px; scrollbar-width: none; }
+.tabs-row::-webkit-scrollbar { display: none; }
+.tabs a {
+  font-family: var(--mono); font-size: var(--step--1); letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; color: var(--ink-soft); white-space: nowrap;
+  padding: 9px 16px; border-radius: 999px; border: 1.5px solid transparent;
+}
+.tabs a:hover { color: var(--ink); border-color: var(--line); }
+.tabs a[aria-current="page"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.view[data-view="home"] .hero .wrap { padding-top: clamp(16px, 4vw, 40px); }
+
+/* ---------- upcoming ---------- */
+.empty { border: 1.5px dashed var(--ink-soft); padding: 22px 24px; max-width: 62ch; }
+.empty p { margin: 0; font-size: var(--step-1); line-height: 1.45; }
+.empty a { text-underline-offset: 4px; }
+
+/* ---------- videos ---------- */
+.videos { display: grid; grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.78fr) minmax(0, 0.75fr); gap: 14px; align-items: start; }
+.vid { margin: 0; min-width: 0; }
+.vid video { display: block; width: 100%; max-width: 100%; height: auto; background: var(--paper-2); }
+.v-tall video { aspect-ratio: 3 / 4; }
+.v-wide video { aspect-ratio: 16 / 9; }
+.vid figcaption { margin-top: 8px; }
+
+.hint-phone { display: none; }
+
 /* ---------- footer ---------- */
 footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
@@ -298,8 +331,23 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
   .hero-photo { order: -1; margin-right: 12px; }
   .hero-photo img { aspect-ratio: 1 / 1; }
   .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .gallery { column-count: 2; column-gap: 10px; }
-  .shot { margin-bottom: 10px; }
+  .videos { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+  .v-wide { grid-column: 1 / -1; order: -1; }
+  /* phone gallery: swipeable strip */
+  .gallery {
+    column-count: auto; display: flex; gap: 10px; overflow-x: auto;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    margin-inline: calc(-1 * max(20px, env(safe-area-inset-left, 0px))) calc(-1 * max(20px, env(safe-area-inset-right, 0px)));
+    padding-inline: max(20px, env(safe-area-inset-left, 0px)) max(20px, env(safe-area-inset-right, 0px));
+    scroll-padding-inline: max(20px, env(safe-area-inset-left, 0px));
+    scrollbar-width: none;
+  }
+  .gallery::-webkit-scrollbar { display: none; }
+  .shot { flex: none; width: auto; margin: 0; height: min(64vh, 520px); scroll-snap-align: start; }
+  .shot img { width: auto; height: 100%; max-width: 84vw; object-fit: cover; }
+  .shot:hover img { transform: none; }
+  .hint-desk { display: none; }
+  .hint-phone { display: inline; }
 }
 @media (max-width: 480px) {
   .facts { grid-template-columns: minmax(0, 1fr); }
@@ -315,10 +363,7 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
   .name .l { animation: none; }
   .gallery img, .btn { transition: none; }
 }
-</style>
-</head>
-<body>
-
+</style></head><body>
 
 <header class="topbar">
   <div class="wrap">
@@ -329,8 +374,17 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
     </a>
   </div>
 </header>
+<nav class="tabs" aria-label="Site sections">
+  <div class="wrap tabs-row">
+    <a href="#home" data-tab="home" aria-current="page">Home</a>
+    <a href="#shows" data-tab="shows">Shows</a>
+    <a href="#photos" data-tab="photos">Photos</a>
+    <a href="#videos" data-tab="videos">Videos</a>
+  </div>
+</nav>
 
 <main>
+<div class="view" data-view="home">
   <section class="hero" style="padding:0">
     <div class="wrap">
       <h1 class="name" aria-label="Floor Guy">
@@ -351,7 +405,7 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
 
   <div class="blocks" role="presentation"></div>
 
-  <section id="about">
+  <section>
     <div class="wrap">
       <div class="section-head"><h2>About</h2></div>
       <div class="about-grid">
@@ -368,7 +422,7 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
     </div>
   </section>
 
-  <section class="band" id="band">
+  <section class="band">
     <div class="wrap band-grid">
       <div class="section-head"><h2>The band</h2></div>
       <div>
@@ -382,27 +436,33 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
     </div>
   </section>
 
-  <section id="photos">
+  <section>
     <div class="wrap">
-      <div class="section-head"><h2>Live</h2><span class="label">Tap a photo to see it big</span></div>
-      <div class="gallery">
-        <button class="shot" type="button" data-full="img/crowd-stage.jpg"><img src="img/crowd-stage.jpg" alt="Floor Guy on stage at Salted Sprig under blue and orange light, a packed crowd in front holding up phones." width="1600" height="1066" loading="lazy"></button>
-        <button class="shot" type="button" data-full="img/singer-chandelier.jpg"><img src="img/singer-chandelier.jpg" alt="The singer turning toward the band mid-song with an acoustic guitar, a crystal chandelier hanging above her." width="1066" height="1600" loading="lazy"></button>
-        <button class="shot" type="button" data-full="img/drums.jpg"><img src="img/drums.jpg" alt="Koko at the drum kit with brushes, lit teal and orange." width="1066" height="1600" loading="lazy"></button>
-        <button class="shot" type="button" data-full="img/scooby.jpg"><img src="img/scooby.jpg" alt="The four of them dressed as the Scooby gang behind a keyboard, pointing a flashlight at the camera under red light." width="1600" height="1067" loading="lazy"></button>
-        <button class="shot" type="button" data-full="img/pedal-steel.jpg"><img src="img/pedal-steel.jpg" alt="Playing pedal steel in a tweed blazer, seated on a painted drum, under blue and orange stage light." width="1066" height="1600" loading="lazy"></button>
-        <button class="shot" type="button" data-full="img/outdoor-behind.jpg"><img src="img/outdoor-behind.jpg" alt="View from behind the band at a night show in animal onesies, facing a crowd lit green and red under autumn trees." width="1600" height="901" loading="lazy"></button>
-        <button class="shot" type="button" data-full="img/silhouette.jpg"><img src="img/silhouette.jpg" alt="The singer in sunglasses silhouetted against a bright stage light, acoustic guitar neck raised." width="1066" height="1600" loading="lazy"></button>
-        <button class="shot" type="button" data-full="img/low-angle.jpg"><img src="img/low-angle.jpg" alt="Low-angle view of the band in matching blazers on stage at Salted Sprig." width="1600" height="1200" loading="lazy"></button>
-        <button class="shot" type="button" data-full="img/monkey-cymbal.jpg"><img src="img/monkey-cymbal.jpg" alt="A band member in a monkey onesie holding a microphone up to a cymbal at an outdoor night show." width="1200" height="1600" loading="lazy"></button>
-        <button class="shot" type="button" data-full="img/outdoor-cheer.jpg"><img src="img/outdoor-cheer.jpg" alt="Band members in onesies raising a fist and a sign toward the crowd at an outdoor night show under pine trees." width="1450" height="1546" loading="lazy"></button>
+      <div class="section-head"><h2>At a glance</h2></div>
+      <dl class="facts">
+        <div><dt class="label">Hometown</dt><dd>Hailey, Idaho</dd></div>
+        <div><dt class="label">Lineup</dt><dd>Four-piece</dd></div>
+        <div><dt class="label">Sound</dt><dd>Genre-loose, made to groove</dd></div>
+        <div><dt class="label">Instagram</dt><dd><a href="https://www.instagram.com/floorguyy/" target="_blank" rel="noopener">@floorguyy</a></dd></div>
+      </dl>
+      <div class="cta">
+        <a class="btn" href="https://www.instagram.com/floorguyy/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          Follow and message us on Instagram
+        </a>
       </div>
     </div>
   </section>
+</div>
 
-  <section id="shows" style="padding-top:0">
+<div class="view" data-view="shows" hidden>
+  <section>
     <div class="wrap">
-      <div class="section-head"><h2>Shows</h2><span class="label">2026</span></div>
+      <div class="section-head"><h2>Upcoming</h2></div>
+      <div class="empty">
+        <p>No dates on the calendar yet. Follow <a href="https://www.instagram.com/floorguyy/" target="_blank" rel="noopener">@floorguyy</a> on Instagram to hear about the next one first.</p>
+      </div>
+      <div class="section-head" style="margin-top:clamp(48px,7vw,80px)"><h2>Past shows</h2><span class="label">2026</span></div>
       <ol class="shows">
         <li>
           <time class="date" datetime="2026-10-31"><span class="mo">Oct</span><span class="dy">31</span></time>
@@ -439,24 +499,49 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
       </ol>
     </div>
   </section>
+</div>
 
-  <section id="booking" style="padding-top:0">
+<div class="view" data-view="photos" hidden>
+  <section>
     <div class="wrap">
-      <div class="section-head"><h2>At a glance</h2></div>
-      <dl class="facts">
-        <div><dt class="label">Hometown</dt><dd>Hailey, Idaho</dd></div>
-        <div><dt class="label">Lineup</dt><dd>Four-piece</dd></div>
-        <div><dt class="label">Sound</dt><dd>Genre-loose, made to groove</dd></div>
-        <div><dt class="label">Instagram</dt><dd><a href="https://www.instagram.com/floorguyy/" target="_blank" rel="noopener">@floorguyy</a></dd></div>
-      </dl>
-      <div class="cta">
-        <a class="btn" href="https://www.instagram.com/floorguyy/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-          Follow and message us on Instagram
-        </a>
+      <div class="section-head"><h2>Photos</h2><span class="label hint-desk">Tap a photo to see it big</span><span class="label hint-phone">Swipe for more, tap to enlarge</span></div>
+      <div class="gallery">
+        <button class="shot" type="button" data-full="img/crowd-stage.jpg"><img src="img/crowd-stage.jpg" alt="Floor Guy on stage at Salted Sprig under blue and orange light, a packed crowd in front holding up phones." width="1600" height="1066" loading="lazy"></button>
+        <button class="shot" type="button" data-full="img/singer-chandelier.jpg"><img src="img/singer-chandelier.jpg" alt="The singer turning toward the band mid-song with an acoustic guitar, a crystal chandelier hanging above her." width="1066" height="1600" loading="lazy"></button>
+        <button class="shot" type="button" data-full="img/drums.jpg"><img src="img/drums.jpg" alt="Koko at the drum kit with brushes, lit teal and orange." width="1066" height="1600" loading="lazy"></button>
+        <button class="shot" type="button" data-full="img/scooby.jpg"><img src="img/scooby.jpg" alt="The four of them dressed as the Scooby gang behind a keyboard, pointing a flashlight at the camera under red light." width="1600" height="1067" loading="lazy"></button>
+        <button class="shot" type="button" data-full="img/pedal-steel.jpg"><img src="img/pedal-steel.jpg" alt="Playing pedal steel in a tweed blazer, seated on a painted drum, under blue and orange stage light." width="1066" height="1600" loading="lazy"></button>
+        <button class="shot" type="button" data-full="img/outdoor-behind.jpg"><img src="img/outdoor-behind.jpg" alt="View from behind the band at a night show in animal onesies, facing a crowd lit green and red under autumn trees." width="1600" height="901" loading="lazy"></button>
+        <button class="shot" type="button" data-full="img/silhouette.jpg"><img src="img/silhouette.jpg" alt="The singer in sunglasses silhouetted against a bright stage light, acoustic guitar neck raised." width="1066" height="1600" loading="lazy"></button>
+        <button class="shot" type="button" data-full="img/low-angle.jpg"><img src="img/low-angle.jpg" alt="Low-angle view of the band in matching blazers on stage at Salted Sprig." width="1600" height="1200" loading="lazy"></button>
+        <button class="shot" type="button" data-full="img/monkey-cymbal.jpg"><img src="img/monkey-cymbal.jpg" alt="A band member in a monkey onesie holding a microphone up to a cymbal at an outdoor night show." width="1200" height="1600" loading="lazy"></button>
+        <button class="shot" type="button" data-full="img/outdoor-cheer.jpg"><img src="img/outdoor-cheer.jpg" alt="Band members in onesies raising a fist and a sign toward the crowd at an outdoor night show under pine trees." width="1450" height="1546" loading="lazy"></button>
       </div>
     </div>
   </section>
+</div>
+
+<div class="view" data-view="videos" hidden>
+  <section>
+    <div class="wrap">
+      <div class="section-head"><h2>Videos</h2><span class="label">Sound on</span></div>
+      <div class="videos">
+        <figure class="vid v-tall">
+          <video controls playsinline preload="none" poster="video/halloween-stage.jpg" width="720" height="960"><source src="video/halloween-stage.mp4" type="video/mp4"></video>
+          <figcaption class="label">Halloween · Salted Sprig</figcaption>
+        </figure>
+        <figure class="vid v-wide">
+          <video controls playsinline preload="none" poster="video/halloween-crowd.jpg" width="1280" height="720"><source src="video/halloween-crowd.mp4" type="video/mp4"></video>
+          <figcaption class="label">The Halloween dance floor</figcaption>
+        </figure>
+        <figure class="vid v-tall">
+          <video controls playsinline preload="none" poster="video/monkey-fest.jpg" width="720" height="960"><source src="video/monkey-fest.mp4" type="video/mp4"></video>
+          <figcaption class="label">Monkey Fest</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+</div>
 </main>
 
 <div class="blocks" role="presentation"></div>
@@ -525,6 +610,29 @@ footer .wrap { padding-block: 28px 36px; display: flex; justify-content: space-b
   });
 })();
 </script>
-
-</body>
-</html>
+<script>
+(function () {
+  var names = ['home', 'shows', 'photos', 'videos'];
+  var views = {};
+  document.querySelectorAll('.view').forEach(function (v) { views[v.getAttribute('data-view')] = v; });
+  var tabs = document.querySelectorAll('.tabs a');
+  var current = null;
+  function route() {
+    var h = location.hash.replace('#', '');
+    if (names.indexOf(h) < 0) h = 'home';
+    if (h === current) return;
+    var first = current === null;
+    current = h;
+    names.forEach(function (n) { views[n].hidden = (n !== h); });
+    tabs.forEach(function (t) {
+      if (t.getAttribute('data-tab') === h) t.setAttribute('aria-current', 'page');
+      else t.removeAttribute('aria-current');
+    });
+    if (h !== 'videos') document.querySelectorAll('video').forEach(function (v) { v.pause(); });
+    if (!first) window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+</body></html>
