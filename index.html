@@ -334,6 +334,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @keyframes spin { to { transform: rotate(360deg); } }
 @media (max-width: 480px) { .next-venue, .t-desk { display: none; } .t-phone { display: inline; } .next { font-size: .8rem; gap: 7px; padding-right: 11px; } }
 .upcoming .date { background: var(--ink); color: var(--paper); }
+.tix { margin-top: 14px; background: var(--pop); color: var(--pop-ink); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+.tix:hover { box-shadow: 5px 5px 0 var(--ink); }
 .vote { margin: 8px 0 0; font-weight: 700; text-decoration: underline wavy var(--ink-soft) 1.5px; text-underline-offset: 6px; }
 .empty { border: 1.5px dashed var(--ink-soft); padding: 22px 24px; max-width: 62ch; }
 .empty p { margin: 0; font-size: var(--step-1); line-height: 1.45; }
@@ -647,6 +649,7 @@ h2::after {
             <p class="label eyebrow">Saturday · 3:30 PM</p>
             <p class="bill"><strong>Battle of the Bands</strong></p>
             <p class="vote">Fans pick the winner. Come vote for Floor Guy!</p>
+            <a class="btn btn-small tix" href="https://www.libertytheaterhailey.com/events/battle-of-the-bands-2026" target="_blank" rel="noopener">Get tickets →</a>
           </div>
           <p class="where">Liberty Theatre<br><span class="label">Hailey, Idaho</span></p>
         </li>
