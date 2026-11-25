@@ -332,8 +332,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .next-star { width: 14px; height: 14px; display: inline-block; animation: spin 2.4s linear infinite; }
 .next-star svg { width: 100%; height: 100%; display: block; }
 @keyframes spin { to { transform: rotate(360deg); } }
-@media (max-width: 480px) { .next-venue, .t-desk { display: none; } .t-phone { display: inline; } .next { font-size: .8rem; gap: 7px; padding-right: 11px; } }
+@media (max-width: 480px) { .next-venue, .t-desk, .cta-word { display: none; } .t-phone { display: inline; } .next { font-size: .8rem; gap: 7px; padding-right: 11px; } }
 .upcoming .date { background: var(--ink); color: var(--paper); }
+.fest-note { margin: 8px 0 0; font-weight: 600; line-height: 1.4; max-width: 46ch; }
+.date-yr .mo { font-size: .62rem; letter-spacing: .06em; }
+.win { display: inline-flex; align-items: center; gap: 6px; margin: 8px 0 0; padding: 4px 11px 4px 8px; border-radius: 999px;
+  background: var(--pop); color: var(--pop-ink); border: 2px solid var(--ink); font-family: var(--mono); font-size: .72rem;
+  letter-spacing: .08em; text-transform: uppercase; font-weight: 500; transform: rotate(-2deg); }
+.win-star { width: 13px; height: 13px; display: inline-block; animation: spin 2.4s linear infinite; }
+.win-star svg { width: 100%; height: 100%; display: block; }
 .tix { margin-top: 14px; background: var(--pop); color: var(--pop-ink); border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
 .tix:hover { box-shadow: 5px 5px 0 var(--ink); }
 .vote { margin: 8px 0 0; font-weight: 700; text-decoration: underline wavy var(--ink-soft) 1.5px; text-underline-offset: 6px; }
@@ -526,7 +533,7 @@ h2::after {
 @media (max-width: 820px) {
 }
 @media (prefers-reduced-motion: reduce) {
-  .dd, .next-star, .ticker-track, .floorguy .kick, .floorguy .note, .tabs a:hover { animation: none !important; }
+  .dd, .next-star, .win-star, .ticker-track, .floorguy .kick, .floorguy .note, .tabs a:hover { animation: none !important; }
   .floorguy .note { opacity: 1; }
 }
 </style></head><body>
@@ -552,6 +559,13 @@ h2::after {
 
 <main>
 <div class="view" data-view="home">
+  <div class="next-wrap wrap">
+    <a class="next" href="#shows">
+      <span class="next-tag"><span class="t-desk">Spring 2027</span><span class="t-phone">2027</span></span>
+      <span class="next-text">We’re playing Treefort<span class="next-venue"> Music Fest in Boise</span>!</span>
+      <span class="next-cta"><span class="next-star" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="currentColor"/></svg></span><span class="cta-word">Audience Choice</span></span>
+    </a>
+  </div>
   <section class="hero" style="padding:0">
     <div class="wrap">
       <div class="name-wrap">
@@ -635,9 +649,18 @@ h2::after {
   <section>
     <div class="wrap">
       <div class="section-head"><h2>Upcoming</h2></div>
-      <div class="empty">
-        <p>No dates on the calendar yet. Follow <a href="https://www.instagram.com/floorguyy/" target="_blank" rel="noopener">@floorguyy</a> on Instagram to hear about the next one first.</p>
-      </div>
+      <ol class="shows upcoming">
+        <li>
+          <time class="date date-yr" datetime="2027-03-31"><span class="mo">Mar–Apr</span><span class="dy">’27</span></time>
+          <div class="what">
+            <p class="label eyebrow">Mar 31 – Apr 4, 2027 · set time TBA</p>
+            <p class="bill"><strong>Treefort Music Fest</strong></p>
+            <p class="fest-note">We won our spot as Audience Choice at Battle of the Bands. See you in Boise!</p>
+            <a class="btn btn-small tix" href="https://treefortmusicfest.com/" target="_blank" rel="noopener">Festival info →</a>
+          </div>
+          <p class="where">Treefort<br><span class="label">Boise, Idaho</span></p>
+        </li>
+      </ol>
       <div class="section-head" style="margin-top:clamp(48px,7vw,80px)"><h2>Past shows</h2><span class="label">2026</span></div>
       <ol class="shows">
         <li>
@@ -645,6 +668,7 @@ h2::after {
           <div class="what">
             <p class="label eyebrow">Competition</p>
             <p class="bill"><strong>Battle of the Bands</strong></p>
+            <p class="win"><span class="win-star" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="currentColor"/></svg></span>Audience Choice winner</p>
           </div>
           <p class="where">Liberty Theatre<br><span class="label">Hailey, Idaho</span></p>
         </li>
